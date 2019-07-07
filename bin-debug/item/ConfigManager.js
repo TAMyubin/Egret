@@ -49,6 +49,18 @@ var ConfigManager = (function () {
         this.hei = 0;
         /* 地洞管理组 */
         this.cave_Group = [];
+        //前5关需要的分数
+        this._goal = [300, 500, 1000, 1500, 3000];
+        //增加的分值
+        this._score = [10, 15, 20, 25, 30];
+        //地鼠出现的时间间隔
+        this._count = [700, 600, 500, 450, 400];
+        //记录第几关
+        this._nowlevel = 1;
+        //记录当前得分
+        this._nowgoal = 0;
+        //加分显示对象池
+        this._addfen = [];
     }
     Object.defineProperty(ConfigManager, "Instance", {
         get: function () {
@@ -94,6 +106,83 @@ var ConfigManager = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ConfigManager.prototype, "goal", {
+        //读取前五关需要的分数
+        get: function () {
+            return this._goal;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConfigManager.prototype, "score", {
+        get: function () {
+            return this._score;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConfigManager.prototype, "count", {
+        //地鼠出现的时间间隔
+        get: function () {
+            return this._count;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConfigManager.prototype, "maxlevel", {
+        //读取已经过了多少关
+        get: function () {
+            return this._maxlevel;
+        },
+        //修改已经过了多少关
+        set: function (value) {
+            this._maxlevel = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConfigManager.prototype, "nowlevel", {
+        //读取现在第几关
+        get: function () {
+            return this._nowlevel;
+        },
+        //设置现在第几关
+        set: function (value) {
+            this._nowlevel = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ConfigManager.prototype, "nowgoal", {
+        //获取当前得分
+        get: function () {
+            return this._nowgoal;
+        },
+        //设置当前得分
+        set: function (value) {
+            this._nowgoal = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    //加分显示
+    ConfigManager.prototype.addfen = function () {
+        if (this._addfen.length > 0) {
+            for (var i = 0; i < this._addfen.length; i++) {
+                if (this._addfen[i].visible == false) {
+                    this._addfen[i].visible == true;
+                    return this._addfen[i];
+                }
+            }
+        }
+        var fen = new eui.Label();
+        fen.size = 40;
+        fen.textColor = 0xFCF305;
+        fen.touchEnabled = false;
+        this.manage.playing.Group.addChild(fen);
+        this._addfen.push(fen);
+        return fen;
+    };
     /*做个单例 */
     ConfigManager._instance = null;
     return ConfigManager;

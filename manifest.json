@@ -15,6 +15,7 @@
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/item/Book.js",
 		"bin-debug/LoadingUI.js",
+		"bin-debug/item/Diglett.js",
 		"bin-debug/item/mainScene.js",
 		"bin-debug/item/Manage.js",
 		"bin-debug/item/Monster.js",

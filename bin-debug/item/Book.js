@@ -54,7 +54,7 @@ var Book = (function (_super) {
     };
     Book.prototype.open = function () {
         for (var i = 0; i < 6; i++) {
-            if (i + 1 <= 4) {
+            if (i + 1 <= ConfigManager.Instance.maxlevel) {
                 this.Monster_Group[i].yao(i + 1);
             }
             else {

@@ -50,7 +50,7 @@ class Book extends egret.DisplayObjectContainer{
     }
    public open(){
        for(var i = 0;i<6;i++){
-           if(i + 1<=4){
+           if(i + 1<=ConfigManager.Instance.maxlevel){
                this.Monster_Group[i].yao(i+1);
            }
            else{

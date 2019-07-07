@@ -25,12 +25,12 @@ var Manage = (function (_super) {
     Manage.prototype.init = function () {
         this.mainscene = new mainScene();
         this.addChild(this.mainscene);
-        this.over = new Over();
-        this.addChild(this.over);
         this.playing = new Playing();
         this.addChild(this.playing);
         this.book = new Book();
         this.addChild(this.book);
+        this.over = new Over();
+        this.addChild(this.over);
         ConfigManager.Instance.manage = this;
     };
     return Manage;

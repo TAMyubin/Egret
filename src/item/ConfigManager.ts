@@ -21,8 +21,8 @@ class ConfigManager {
         group.addChild(image);
         return image;
     }
-//创建文本(容器，x,y)
-    public foundlabel(group:any,xx:number,yy:number){
+    //创建文本(容器，x,y)
+    public foundlabel(group: any, xx: number, yy: number) {
         var label = new eui.Label();
         label.x = xx;
         label.y = yy;
@@ -30,8 +30,8 @@ class ConfigManager {
         return label;
     }
     //更换图片
-    public changeImage(image:eui.Image,str:string){
-        let texture:egret.Texture = RES.getRes(str);
+    public changeImage(image: eui.Image, str: string) {
+        let texture: egret.Texture = RES.getRes(str);
         image.texture = texture;
     }
     //图片路径容器
@@ -75,18 +75,85 @@ class ConfigManager {
         /**半透明遮罩 */
         url7: 'zhezhao_png',
     }
-    
+
     /**屏幕适配 */
     public hei = 0;
     /* 地洞管理组 */
-    private cave_Group:{node:eui.Image,bool:boolean}[] = [];
+    private cave_Group: { node: eui.Image, bool: boolean }[] = [];
     /*读取地洞管理组（节点，是否使用） */
-    public get _cave_Group():{node:eui.Image,bool:boolean}[]{
+    public get _cave_Group(): { node: eui.Image, bool: boolean }[] {
         return this.cave_Group;
     }
-
+    //前5关需要的分数
+    private _goal = [300, 500, 1000, 1500, 3000];
+    //读取前五关需要的分数
+    public get goal(): number[] {
+        return this._goal;
+    }
+    //增加的分值
+    private _score = [10,15,20,25,30];
+    public get score():number[]{
+        return this._score;
+    }
+    //地鼠出现的时间间隔
+    private _count = [700,600,500,450,400];
+     //地鼠出现的时间间隔
+    public get count():number[]{
+        return this._count;
+    }
+    //已经过了多少关
+    private _maxlevel:number;
+    //读取已经过了多少关
+    public get maxlevel():number{
+        return this._maxlevel;
+    }
+    //修改已经过了多少关
+    public set maxlevel(value:number){
+        this._maxlevel = value;
+    }
+    //记录第几关
+    private _nowlevel: number = 1;
+    //设置现在第几关
+    public set nowlevel(value: number) {
+        this._nowlevel = value;
+    }
+    //读取现在第几关
+    public get nowlevel(): number {
+        return this._nowlevel;
+    }
+    //记录当前得分
+    private _nowgoal:number = 0;
+    //设置当前得分
+    public set nowgoal(value:number){
+        this._nowgoal = value;
+    }
+       //获取当前得分
+    public get nowgoal():number{
+        return this._nowgoal;
+    }
 
     /**脚本管理 */
     public manage: Manage;
+    //加分显示对象池
+    private _addfen:eui.Label[] = [];
+    //加分显示
+public addfen(){
+    if(this._addfen.length>0){
+        for(var i = 0;i<this._addfen.length;i++){
+            if(this._addfen[i].visible == false){
+                this._addfen[i].visible == true;
+                return this._addfen[i];
+            }
+        }
+    }
+    var fen = new eui.Label();
+    fen.size = 40;
+    fen.textColor = 0xFCF305;
+    fen.touchEnabled = false;
+    this.manage.playing.Group.addChild(fen);
+    this._addfen.push(fen);
+    return fen;
+}
+
 
 }
